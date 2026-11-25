@@ -5,6 +5,7 @@ import { faker } from '@faker-js/faker';
 const app = express();
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+const PORT = process.env.PORT || 3000;
 
 
 const categories = ['shooter', 'mmorpg', 'strategy', 'moba', 'racing', 'sports', 'social', 'card', 'fighting', 'fantasy', 'battle-royale'];
@@ -73,6 +74,6 @@ app.get('/team', (req, res) => {
     res.render('team', { page: 'team', title: 'Sample Studio Team | Video Game Development', studio, team });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log(`server started on port ${PORT}`);
 });
