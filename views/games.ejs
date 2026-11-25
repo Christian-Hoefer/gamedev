@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head') %>
+
+<body>
+    <%- include('partials/nav') %>
+    <main>
+        <section>
+            <h2>Popular Free-to-Play Games</h2>
+            <p>These are the most popular free-to-play games right now, loaded live from the FreeToGame API each
+                time the page is opened. Pick a genre to see the top games in that category.</p>
+
+            <form action="/games" method="get" class="filter-form">
+                <label for="category">Genre:</label>
+                <select name="category" id="category">
+                    <option value="">All genres</option>
+                    <% categories.forEach(c => { %>
+                        <option value="<%= c %>" <%= c === category ? 'selected' : '' %>><%= c %></option>
+                    <% }) %>
+                </select>
+                <button type="submit">Show games</button>
+            </form>
+        </section>
+
+        <section>
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } else { %>
+                <div class="card-grid">
+                    <% games.forEach(game => { %>
+                        <article class="card game-card">
+                            <img src="<%= game.thumbnail %>" alt="<%= game.title %> thumbnail">
+                            <h3><a href="<%= game.game_url %>" target="_blank" rel="noopener"><%= game.title %></a></h3>
+                            <p class="game-meta"><%= game.genre %> · <%= game.platform %></p>
+                            <p><%= game.short_description %></p>
+                            <p class="game-meta">Developer: <%= game.developer %><br>Released: <%= game.release_date %></p>
+                        </article>
+                    <% }) %>
+                </div>
+            <% } %>
+        </section>
+
+        <section class="sources">
+            <h2>Sources</h2>
+            <ul>
+                <li>Game data provided by <a href="https://www.freetogame.com" target="_blank" rel="noopener">FreeToGame.com</a></li>
+            </ul>
+        </section>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+
+</html>
